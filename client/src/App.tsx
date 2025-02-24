@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./pages/Dashboard";
+import Navbar from "./components/Navbar";
+
 
 const App: React.FC = () => {
   return (

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../api";
+import "../styles/auth.css"; // Add this for styling
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -14,7 +15,6 @@ const Register: React.FC = () => {
       navigate("/login");
     } catch (error: any) {
       console.error("Registration error:", error);
-      // If error.response exists, show its message
       if (error.response && error.response.data && error.response.data.error) {
         alert(`Error registering user: ${error.response.data.error}`);
       } else {
@@ -24,20 +24,10 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="auth-container">
       <h2>Register</h2>
-      <input 
-        type="text" 
-        placeholder="Username" 
-        value={username} 
-        onChange={(e) => setUsername(e.target.value)} 
-      />
-      <input 
-        type="password" 
-        placeholder="Password" 
-        value={password} 
-        onChange={(e) => setPassword(e.target.value)} 
-      />
+      <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <button onClick={handleRegister}>Register</button>
     </div>
   );

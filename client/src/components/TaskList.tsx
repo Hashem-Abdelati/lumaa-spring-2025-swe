@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getTasks, createTask, updateTask, deleteTask } from "../api";
+import "../styles/global.css"; 
 
 interface Task {
   id: number;
@@ -91,48 +92,47 @@ const TaskList: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="task-container">
       <h2>Tasks</h2>
-      <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
-      <input type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-      <button onClick={handleAddTask}>Add Task</button>
+      <div className="task-input">
+        <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <input type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+        <button onClick={handleAddTask}>➕ Add</button>
+      </div>
 
-      <ul>
+      <ul className="task-list">
         {tasks.map((task) => (
-          <li key={task.id} style={{ textDecoration: task.isComplete ? "line-through" : "none" }}>
-            <input
-              type="checkbox"
-              checked={task.isComplete}
-              onChange={() => handleToggleComplete(task)}
-            />
+          <li key={task.id} className={`task-card ${task.isComplete ? "completed" : ""}`}>
+            <input type="checkbox" checked={task.isComplete} onChange={() => handleToggleComplete(task)} />
             
             {editingTaskId === task.id ? (
-              <>
-                <input
-                  type="text"
-                  value={editedTitle}
-                  onChange={(e) => setEditedTitle(e.target.value)}
-                />
-                <input
-                  type="text"
-                  value={editedDescription}
-                  onChange={(e) => setEditedDescription(e.target.value)}
-                />
+              <div className="editing">
+                <input type="text" value={editedTitle} onChange={(e) => setEditedTitle(e.target.value)} />
+                <input type="text" value={editedDescription} onChange={(e) => setEditedDescription(e.target.value)} />
                 <button onClick={() => handleSaveEdit(task.id)}>💾 Save</button>
                 <button onClick={handleCancelEdit}>❌ Cancel</button>
-              </>
+              </div>
             ) : (
-              <>
-                <strong>{task.title}</strong> - {task.description}
-                <button onClick={() => handleEditClick(task)}>✏ Edit</button>
-                <button onClick={() => handleDeleteTask(task.id)}>❌ Delete</button>
-              </>
+              <div className="task-details">
+                <strong>{task.title}</strong>
+                <p>{task.description}</p>
+              </div>
             )}
+
+            <div className="task-actions">
+              {editingTaskId !== task.id && (
+                <>
+                  <button className="edit-btn" onClick={() => handleEditClick(task)}>✏</button>
+                  <button className="delete-btn" onClick={() => handleDeleteTask(task.id)}>❌</button>
+                </>
+              )}
+            </div>
           </li>
         ))}
       </ul>
     </div>
   );
 };
+
 
 export default TaskList;

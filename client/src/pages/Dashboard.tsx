@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import TaskList from "../components/TaskList";
+import "../styles/global.css";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -14,17 +15,19 @@ const Dashboard: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-
     navigate("/", { replace: true });
-    window.history.pushState(null, "", "/");
   };
 
   return (
-    <div>
-      <h2>Dashboard</h2>
-      <button onClick={handleLogout}>Logout</button>
-      <TaskList />
-    </div>
+    <>
+      <nav className="navbar">
+        <span>Taskalicious</span>
+        <button className="logout-btn" onClick={handleLogout}>Logout</button>
+      </nav>
+      <div className="content-container">
+        <TaskList />
+      </div>
+    </>
   );
 };
 
