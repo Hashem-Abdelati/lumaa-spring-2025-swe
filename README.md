@@ -1,4 +1,4 @@
-# 📝 Task Manager
+# Task Manager
 
 A simple and functional **Task Management Application** built using **React (TypeScript) for the frontend**, **Node.js (Express) for the backend**, and **PostgreSQL** as the database.
 
